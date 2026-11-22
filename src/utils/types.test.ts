@@ -167,6 +167,11 @@ describe('JSONParsed', () => {
       type Expected = { a: number; b: number | undefined }
       expectTypeOf<Actual>().toEqualTypeOf<Expected>()
     })
+    it('should keep optional properties without adding | undefined', () => {
+      type Actual = JSONParsed<{ a: number; b?: number }>
+      type Expected = { a: number; b?: number }
+      expectTypeOf<Actual>().toEqualTypeOf<Expected>()
+    })
     it('should omit keys with invalid union', () => {
       type Actual = JSONParsed<{ a: number; b: undefined | symbol }>
       type Expected = { a: number }
